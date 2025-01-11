@@ -41,29 +41,21 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 	}
 	for (unsigned long long i = 0; i < Parts; i++) {
 		Par.push_back(1);
+		Sum++;
 	}
-	std::sort(Par.begin(), Par.end());
-	while (Sum < Number) {
+	//std::sort(Par.begin(), Par.end());
+	while (Sum <= Number) {
+		PartitionTree.insert(Par);
+		if (Par.size() > 0) Par[Parts - 1]++;
 		Sum = 0;
 		for (unsigned long long i : Par) {
 			Sum += i;
 
-		}
-
-		PartitionTree.insert(Par);
-
-		if (Par.size() > 0) Par[Parts - 1]++;
+		}	
 	}
-	// Check for partitions
-	for (auto& i : PartitionTree) {
-		Sum = 0;
-		for (unsigned long long j : i) {
-			Sum += j;
-		}
-		if (Sum == Number) {
-			Partitions.insert(i);
-		}
-	}
+
+	// Now, all the elements of PartitionTree have Sum < Number
+
 
 	for (unsigned long long i = 0; i < Number; i++) {
 		NewPartTree.clear();
@@ -75,11 +67,17 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 			}
 			if (Sum <= Number && j[Parts - 1] >= i) {
 				Par = j;
-				std::sort(Par.begin(), Par.end());
+				//std::sort(Par.begin(), Par.end());
 
 				for (unsigned long long k = 1; k < Number && Sum <= Number; k++) {
-
-					NewPartTree.insert(Par);
+					std::sort(Par.begin(), Par.end());
+					if (Sum == Number) {
+						Partitions.insert(Par);
+					}
+					if (j[Parts - 1] >= i + 1 && Sum < Number) {
+						NewPartTree.insert(Par);
+					}
+					
 
 					Par[(Parts + Parts - k) % Parts]++;
 
@@ -90,25 +88,8 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 			}
 		}
 		PartitionTree.clear();
-		// Check for partitions
-		for (auto& j : NewPartTree) {
-			Sum = 0;
-			for (unsigned long long k : j) {
-				Sum += k;
-			}
-			if (Sum == Number) {
-				std::vector<unsigned long long> j0 = j;
-				std::sort(j0.begin(), j0.end());
-				Partitions.insert(j0);
-			}
-			if (j[Parts - 1] >= i + 1 && Sum < Number) {
-				std::vector<unsigned long long> j0 = j;
-				std::sort(j0.begin(), j0.end());
+		PartitionTree = NewPartTree;
 
-				PartitionTree.insert(j0);
-
-			}
-		}
 	}
 
 	return Partitions;

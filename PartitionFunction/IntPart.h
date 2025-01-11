@@ -43,54 +43,45 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 		Par.push_back(1);
 		Sum++;
 	}
-	//std::sort(Par.begin(), Par.end());
+
 	while (Sum <= Number) {
-		PartitionTree.insert(Par);
+		if (Sum == Number) {
+			Partitions.insert(Par);
+		} else PartitionTree.insert(Par);
 		if (Par.size() > 0) Par[Parts - 1]++;
 		Sum = 0;
 		for (unsigned long long i : Par) {
 			Sum += i;
-
 		}	
 	}
 
-	// Now, all the elements of PartitionTree have Sum < Number
-
+	// Now, all the elements of PartitionTree have Sum < Number.
+	// And they are all in order, inevitably.
 
 	for (unsigned long long i = 0; i < Number; i++) {
 		NewPartTree.clear();
 		for (auto& j : PartitionTree) {
 
-			Sum = 0;
-			for (unsigned long long k : j) {
-				Sum += k;
-			}
-			if (Sum <= Number && j[Parts - 1] >= i) {
+			if (j[Parts - 1] >= i) {
 				Par = j;
-				//std::sort(Par.begin(), Par.end());
-
-				for (unsigned long long k = 1; k < Number && Sum <= Number; k++) {
-					std::sort(Par.begin(), Par.end());
+				for (unsigned long long k = 1; k <= Parts; k++) {
+					Par[Parts - k]++;
+					Sum = 0;
+					for (unsigned long long l : Par) Sum += l;
+					
 					if (Sum == Number) {
+						std::sort(Par.begin(), Par.end());
 						Partitions.insert(Par);
 					}
 					if (j[Parts - 1] >= i + 1 && Sum < Number) {
+						std::sort(Par.begin(), Par.end());
 						NewPartTree.insert(Par);
 					}
-					
-
-					Par[(Parts + Parts - k) % Parts]++;
-
-					Sum = 0;
-					for (unsigned long long l : Par) Sum += l;
-
 				}
 			}
 		}
 		PartitionTree.clear();
 		PartitionTree = NewPartTree;
-
 	}
-
 	return Partitions;
 }

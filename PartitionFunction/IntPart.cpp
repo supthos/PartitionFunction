@@ -18,7 +18,6 @@ int main() {
 	std::cin >> N;
 	while (N != 0) {
 
-		
 		std::cout << "Partitions:" << std::endl;
 		PartitionCount = 0;
 		for (unsigned long long P = 0; P <= N; P++) {
@@ -29,7 +28,6 @@ int main() {
 			/*for (auto& i : PartitionResults) {
 				PrntPrts(i);
 			}*/
-
 		}
 		std::cout << "\nTotal: " << std::to_string(PartitionCount) << std::endl;
 		std::cout << "Enter Integer: ";

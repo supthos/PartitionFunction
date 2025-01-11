@@ -49,8 +49,6 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 			Sum += i;
 
 		}
-		//auto j0 = Par;
-		//std::sort(Par.begin(), Par.end());
 
 		PartitionTree.insert(Par);
 
@@ -63,20 +61,14 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 			Sum += j;
 		}
 		if (Sum == Number) {
-			/*auto j0 = i;
-			std::sort(j0.begin(), j0.end());
-			Partitions.insert(j0);*/
 			Partitions.insert(i);
 		}
 	}
 
-
-	//for (unsigned long long i = 0; i < Number && !PartitionTree.empty(); i++) {
 	for (unsigned long long i = 0; i < Number; i++) {
 		NewPartTree.clear();
 		for (auto& j : PartitionTree) {
 
-			//for (unsigned long long j = 0; j < PartitionTree.size(); j++) {
 			Sum = 0;
 			for (unsigned long long k : j) {
 				Sum += k;
@@ -86,8 +78,6 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 				std::sort(Par.begin(), Par.end());
 
 				for (unsigned long long k = 1; k < Number && Sum <= Number; k++) {
-
-					//auto j0 = Par;
 
 					NewPartTree.insert(Par);
 

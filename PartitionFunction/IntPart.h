@@ -54,9 +54,6 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 		}	
 	}
 
-	// Now, all the elements of PartitionTree have Sum < Number.
-	// And they are all in order, inevitably.
-
 	for (unsigned long long i = 0; i < Number; i++) {
 		while(!PartitionTree.empty()) {
 			Par = *PartitionTree.begin();

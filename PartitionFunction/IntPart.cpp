@@ -16,7 +16,7 @@ int main() {
 	unsigned long long N;
 	std::cout << "Enter Integer: ";
 	std::cin >> N;
-	while (N != 0) {
+	while (N != -1) {
 
 		std::cout << "Partitions:" << std::endl;
 		PartitionCount = 0;

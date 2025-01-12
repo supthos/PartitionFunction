@@ -29,7 +29,6 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 	std::vector<unsigned long long> Par;
 
 	std::set<std::vector<unsigned long long>> PartitionTree;
-	std::set<std::vector<unsigned long long>> NewPartTree;
 	std::set<std::vector<unsigned long long>> Partitions;
 
 	if (Parts == 0) {
@@ -59,29 +58,25 @@ std::set<std::vector<unsigned long long>> partition(unsigned long long Number, u
 	// And they are all in order, inevitably.
 
 	for (unsigned long long i = 0; i < Number; i++) {
-		NewPartTree.clear();
-		for (auto& j : PartitionTree) {
+		while(!PartitionTree.empty()) {
+			Par = *PartitionTree.begin();
+			PartitionTree.erase(PartitionTree.begin());
 
-			if (j[Parts - 1] >= i) {
-				Par = j;
+			if (Par[Parts - 1] >= i) {
 				for (unsigned long long k = 1; k <= Parts; k++) {
 					Par[Parts - k]++;
 					Sum = 0;
 					for (unsigned long long l : Par) Sum += l;
 					
 					if (Sum == Number) {
-						std::sort(Par.begin(), Par.end());
 						Partitions.insert(Par);
 					}
-					if (j[Parts - 1] >= i + 1 && Sum < Number) {
-						std::sort(Par.begin(), Par.end());
-						NewPartTree.insert(Par);
+					if (Par[Parts - 1] >= i + 1 && Sum < Number) {
+						PartitionTree.insert(Par);
 					}
 				}
 			}
 		}
-		PartitionTree.clear();
-		PartitionTree = NewPartTree;
 	}
 	return Partitions;
 }

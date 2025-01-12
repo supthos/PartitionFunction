@@ -13,7 +13,6 @@
 #include <string>
 #include <iostream>
 #include <set>
-#include <algorithm>
 
 void PrntPrts(std::vector<unsigned long long> Parts) {
 	std::string Partition;

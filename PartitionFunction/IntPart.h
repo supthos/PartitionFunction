@@ -1,7 +1,7 @@
 /******************************************************************************
 *   IntPart.h                                                                 *
 *******************************************************************************
-*   2025 © Guillermo M. Davila Andino                                         *
+*   2025 Â© Guillermo M. Davila Andino                                         *
 *   All rights reserved.                                                      *
 *******************************************************************************
 *   This header file implements an integer partition function "partition"     *
